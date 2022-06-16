@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReservaHotel.App.Views.Forms.ClientePage"
+             xmlns:viewModels="clr-namespace:ReservaHotel.App.ViewModels.Forms">
+
+    <ContentPage.BindingContext>
+        <viewModels:ClienteViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <ListView ItemsSource="{Binding Clientes}"
+                      HasUnevenRows="True"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      RefreshCommand="{Binding RefreshCommand}">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                       
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Context Menu Option" />                                
+                            </ViewCell.ContextActions>
+                            
+                            <Frame BorderColor="Black" BackgroundColor="White" CornerRadius="14">
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OnItemClickCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0" Text="{Binding clienteID}" />
+                                    <Label Grid.Column="1" Text="{Binding nombreCompleto}" HorizontalTextAlignment="Center" />
+                                </Grid>
+                            </Frame>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
